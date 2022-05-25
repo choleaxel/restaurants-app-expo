@@ -30,7 +30,7 @@ export default function App() {
       {allRestaurants ? (allRestaurants?.map(singleRest => (
         <>
          <Text style={styles.restaurantsName} 
-         key={singleRest.id}> {singleRest.name}
+         key={singleRest.id}> {singleRest.name} / {singleRest.rating}
          </Text>
          <Image 
          source={{uri: singleRest.image }}
