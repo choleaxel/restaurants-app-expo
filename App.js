@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView, Image } from 'react-native';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { ImageBackground } from 'react-native';
+import { Text, View, ActivityIndicator, ScrollView, SafeAreaView, ImageBackground } from 'react-native';
+import { useEffect, useState, Fragment } from 'react';
+import RestaurantCard from './src/components/RestaurantCard';
+import styles from './src/styles/index';
+
 
 const image = {uri: 'https://cdn.pixabay.com/photo/2020/03/25/21/05/pizza-4968645_1280.jpg'}
 
@@ -21,46 +22,24 @@ export default function App() {
 
     getData()
 
-  }, [])
+  }, []) 
   return (
 
     <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
       <ImageBackground resizeMode='cover' source={image} style={styles.container}>
       <ScrollView >
-      {allRestaurants ? (allRestaurants?.map(singleRest => (
-        <>
-         <Text style={styles.restaurantsName} 
-         key={singleRest.id}> {singleRest.name} / {singleRest.rating}
-         </Text>
-         <Image 
-         source={{uri: singleRest.image }}
-         style={{ width: '100%', height: 100 }}
-         />
-        </>
+      {!allRestaurants ? <ActivityIndicator size='large' color={'#ff7373'}  /> //if not all restaurants 
+      : (allRestaurants?.map(singleRest => (
+        <RestaurantCard key={singleRest.id} singleRest={singleRest} />
       ))
-      ) : (
-      <ActivityIndicator size='large' color={'#ff7373'}  />
       )}
       </ScrollView>
       <Text>Now I'm hungry!!</Text>
       <StatusBar style="auto" />
     </ImageBackground>
+    </SafeAreaView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  restaurantsName: {
-    color: 'brown',
-    fontSize: 28,
-    marginVertical: 80
-  },
- 
-});
