@@ -9,12 +9,12 @@ import Home from './src/scenes/Home';
 
 const Stack = createNativeStackNavigator()
 
-export const SingleRestContext = createContext(null) //creating context
+export const SingleRestContext = createContext(null) //creating context 
 
 export default function App() {
   const [currentRest, setCurrentRest] = useState(); //used with creating context
   return (
-    <SingleRestContext.Provider>
+    <SingleRestContext.Provider value={{ currentRest, setCurrentRest }}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="Home" component={Home} options={{ title: 'Local Restaurants'}} />
